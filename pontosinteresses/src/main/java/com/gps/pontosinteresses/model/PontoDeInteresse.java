@@ -1,13 +1,12 @@
 package com.gps.pontosinteresses.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ponto-interesse")
+@Table(name = "pontos-interesse")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -28,4 +27,5 @@ public class PontoDeInteresse {
         this.coordenadaX = coordenadaX;
         this.coordenadaY = coordenadaY;
     }
+
 }
