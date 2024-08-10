@@ -46,4 +46,11 @@ public class PontosController {
         service.deletarPontoDeInteresse(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/proximos")
+    public ResponseEntity pontosDeInteressePorProximidade(@RequestParam(name = "x") int x,
+                                                          @RequestParam(name = "y") int y,
+                                                          @RequestParam(name = "dMax") int dMax){
+        return new ResponseEntity(service.pontosDeInteressePorProximidade(x,y,dMax),HttpStatus.OK);
+    }
 }
