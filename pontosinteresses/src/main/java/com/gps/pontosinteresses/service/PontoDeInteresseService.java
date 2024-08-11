@@ -1,5 +1,6 @@
 package com.gps.pontosinteresses.service;
 
+import com.gps.pontosinteresses.Exception.CoordenadaErrorException;
 import com.gps.pontosinteresses.model.PontoDeInteresse;
 import com.gps.pontosinteresses.repository.PontoDeInteresseRepository;
 import org.springframework.stereotype.Service;
@@ -52,22 +53,32 @@ public class PontoDeInteresseService {
     }
 
     public List<PontoDeInteresse> pontosDeInteressePorProximidade(int coordenadaX, int coordenadaY, int dMax){
-        int xLimiteCima = coordenadaX + dMax;
-        int xlimiteBaixo = coordenadaX - dMax;
 
-        int ylimiteCima = coordenadaY + dMax;
-        int ylimitBaixo = coordenadaY - dMax;
+        checarCoordenadaPositivo(coordenadaX,coordenadaY);
+
+        int xLimiteMaximo = coordenadaX + dMax;
+        int xLimiteMinimo = coordenadaX - dMax;
+
+        int yLimiteMaximo = coordenadaY + dMax;
+        int yLimitMinimo = coordenadaY - dMax;
 
         List<PontoDeInteresse> pontosProximos = new ArrayList<>();
+
         for (PontoDeInteresse pontoDeInteresse: listarTodos()) {
             int poiX = pontoDeInteresse.getCoordenadaX();
             int poiY = pontoDeInteresse.getCoordenadaY();
 
-            if (poiX <= xLimiteCima && poiX >= xlimiteBaixo && poiY <= ylimiteCima && poiY >= ylimitBaixo){
+            if (poiX <= xLimiteMaximo && poiX >= xLimiteMinimo && poiY <= yLimiteMaximo && poiY >= yLimitMinimo){
                 pontosProximos.add(pontoDeInteresse);
             }
         }
 
         return pontosProximos;
+    }
+
+    private void checarCoordenadaPositivo(int x, int y){
+        if (x < 0 || y < 0 ){
+            throw new CoordenadaErrorException();
+        }
     }
 }
